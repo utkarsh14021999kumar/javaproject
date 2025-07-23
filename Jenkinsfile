@@ -29,7 +29,7 @@ pipeline {
                 echo 'Starting application...'
                 sh '''
                     . venv/bin/activate
-                    python app.py
+                    nohup python app.py > output.log 2>&1 &
                 '''
             }
         }
