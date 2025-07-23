@@ -5,13 +5,32 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up the environment...'
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
             }
         }
+
         stage('Test') {
             steps {
-                echo 'Running automated tests...'
-                sh 'pytest'
+                echo 'Running tests...'
+                sh '''
+                    . venv/bin/activate
+                    pytest
+                '''
+            }
+        }
+
+        stage('Run App') {
+            steps {
+                echo 'Starting application...'
+                sh '''
+                    . venv/bin/activate
+                    python app.py
+                '''
             }
         }
     }
