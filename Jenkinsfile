@@ -11,13 +11,16 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up the environment...'
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                sh "pip install -r requirements.txt"
                 echo "The Database IP is: ${DB_HOST}"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh "pytest"
+                echo "The DB username is: ${USERNAME} and the password is: ${PASSWORD}"
             }
         }
     }
