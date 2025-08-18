@@ -28,7 +28,7 @@ pipeline {
                     . venv/bin/activate
                     pytest
                 '''
-                echo "The DB username is: ${USERNAME} and the password is: ${PASSWORD}"
+                echo "Commit: ${env.GIT_COMMIT}"
             }
         }
     }
